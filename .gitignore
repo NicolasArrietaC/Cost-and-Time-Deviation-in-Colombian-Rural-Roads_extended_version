@@ -1,0 +1,9 @@
+scripts/__pycache__/
+scripts/.ipynb_checkpoints/
+scripts/obtencion_contratos_secop.py
+data/TerriData.txt.zip
+data/colusiones_en_contratacion_SIC.csv
+data/departamentos_y_municipios_de_colombia.csv
+data/responsabilidades_fiscales.csv
+bin/queries/support_queries.sql
+.DS_Store
