@@ -21,7 +21,9 @@ SELECT
         id_adjudicacion,
         ruta_proceso_en_secop_i as urlproceso,
         nit_de_la_entidad,
-        identificacion_del_contratista
+        identificacion_del_contratista,
+        dpto_y_muni_contratista,
+        municipio_entidad
 WHERE
         anno_firma IS NOT NULL
         AND fecha_fima IS NOT NULL
@@ -30,13 +32,10 @@ WHERE
         AND nombre_grupo = '[G] Terrenos, Edificios, Estructuras y vías'
         AND estado_del_proceso = 'Liquidado'
         AND anno_firma IN ('2014','2015','2016','2017','2018','2019','2020')
-        AND cuantia_proceso IS NOT NULL
-        AND cuantia_proceso > 1000000
-        AND cuantia_contrato > 0
-        -- AND cuantia_proceso > 20000000
-        -- AND cuantia_contrato > 20000000
-        -- AND nombre_regimen_de_contratacion != 'Régimen Especial' --already updated (regimen_de_contratacion)
-        -- AND tipo_de_proceso IN ('Licitación obra pública','Licitación Pública')
+        AND cuantia_proceso > 20000000
+        AND cuantia_contrato > 20000000
+        AND nombre_regimen_de_contratacion != 'Régimen Especial' --already updated (regimen_de_contratacion)
+        AND tipo_de_proceso IN ('Licitación obra pública','Licitación Pública')
         AND tipo_de_contrato = 'Obra'
         --AND detalle_objeto LIKE '%SECUNDARIA%'
         AND detalle_objeto  LIKE '%VIA%' 
@@ -70,9 +69,20 @@ WHERE
         AND detalle_objeto NOT LIKE '%DESMONTE Y LIMPIEZA%'
         AND detalle_objeto NOT LIKE '%AULAS%'
         AND detalle_objeto NOT LIKE '%OBRAS DE ARTE%'
-        AND detalle_objeto NOT LIKE '%VIVIENDA%' 
-        AND detalle_objeto NOT LIKE '%CONSERVACION PUENTES%'
-        AND detalle_objeto NOT LIKE '%PUENTES PEATONALES%' 
-        AND detalle_objeto NOT LIKE '%CONSTRUCCION PUENTES%' 
+        AND detalle_objeto NOT LIKE '%VIVIENDA%'
+        AND detalle_objeto NOT LIKE '%CONSERVACI%N PUENTE%'
+        AND detalle_objeto NOT LIKE '%PUENTE%PEATONAL%' 
+        AND detalle_objeto NOT LIKE '%CONSTRUCCI%N PUENTE%'
+        AND detalle_objeto NOT LIKE '%SUMINISTRO%'
+        AND detalle_objeto NOT LIKE '%INTERVENTOR%A%' 
+        AND detalle_objeto NOT LIKE '%CONSULTOR%A%' 
+        AND detalle_objeto NOT LIKE '%RO%ER%A%' 
+        AND detalle_objeto NOT LIKE '%DISEÑO%'  
+        AND detalle_objeto NOT LIKE '%UNAR ESFUERZOS%'
+        AND detalle_objeto NOT LIKE '%AUNAR ESPUERZOS%'
+        AND detalle_objeto NOT LIKE '%CONVENIO INTERADMINISTRATIVO%'
+        AND detalle_objeto NOT LIKE '%CONVEIO INTERAMINISTRATIVO%'
+        AND detalle_objeto NOT LIKE '%MANTENIMIENTO RUTINARIO%'
+        AND detalle_objeto NOT LIKE '%ESFUERZOS%'
 LIMIT
         10000

@@ -4,7 +4,7 @@ Utility funtions for ETL process
 # Author: Heriberto Felizzola Jimenez <ing.heriberto.felizzola@gmail.com>
 
 import os
-from sodapy import Socrata
+from sodapy import Socrata # type: ignore
 import pandas as pd
 import numpy as np
 #import seaborn as sns

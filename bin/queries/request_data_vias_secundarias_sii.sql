@@ -21,16 +21,18 @@ SELECT DISTINCT
         '000000000' AS id_adjudicacion,
         urlproceso,
         '000000000' AS nit_de_la_entidad,
-        '000000000' AS identificacion_del_contratista
+        '000000000' AS identificacion_del_contratista,
+        departamento || ' - ' || ciudad as dpto_y_muni_contratista,
+        ciudad AS municipio_entidad
 WHERE
         detalle_objeto IS NOT NULL
         AND liquidaci_n = 'Si'
         AND codigo_de_categoria_principal LIKE '%.95%'
         AND anno_firma IN ('2014','2015','2016','2017','2018','2019','2020')
-        --AND cuantia_proceso > 20000000
-        --AND cuantia_contrato > 20000000
-        --AND nombre_regimen_de_contratacion != 'Régimen Especial' --no hay similar
-        --AND tipo_de_proceso IN ('Licitación pública Obra Publica','Licitación pública', 'Licitación Pública Acuerdo Marco de Precios')
+        AND cuantia_proceso > 20000000
+        AND cuantia_contrato > 20000000
+        -- AND nombre_regimen_de_contratacion != 'Régimen Especial' --no hay similar
+        AND tipo_de_proceso IN ('Licitación pública Obra Publica','Licitación pública', 'Licitación Pública Acuerdo Marco de Precios')
         AND detalle_objeto  LIKE '%VIA%' 
         AND detalle_objeto NOT LIKE '%MEZCLA ASFÁLTICA%'
         AND detalle_objeto NOT LIKE '%REDUCTORES DE VELOCIDAD%'
@@ -62,6 +64,20 @@ WHERE
         AND detalle_objeto NOT LIKE '%RESIDUOS SÓLIDOS%'
         AND detalle_objeto NOT LIKE '%DESMONTE Y LIMPIEZA%'
         AND detalle_objeto NOT LIKE '%AULAS%' 
-        AND detalle_objeto NOT LIKE '%VIVIENDA%' 
+        AND detalle_objeto NOT LIKE '%VIVIENDA%'
+        AND detalle_objeto NOT LIKE '%CONSERVACI%N PUENTE%'
+        AND detalle_objeto NOT LIKE '%PUENTE%PEATONAL%' 
+        AND detalle_objeto NOT LIKE '%CONSTRUCCI%N PUENTE%'
+        AND detalle_objeto NOT LIKE '%SUMINISTRO%'
+        AND detalle_objeto NOT LIKE '%INTERVENTOR%A%' 
+        AND detalle_objeto NOT LIKE '%CONSULTOR%A%' 
+        AND detalle_objeto NOT LIKE '%RO%ER%A%' 
+        AND detalle_objeto NOT LIKE '%DISEÑO%'  
+        AND detalle_objeto NOT LIKE '%UNAR ESFUERZOS%'
+        AND detalle_objeto NOT LIKE '%AUNAR ESPUERZOS%'
+        AND detalle_objeto NOT LIKE '%CONVENIO INTERADMINISTRATIVO%'
+        AND detalle_objeto NOT LIKE '%CONVEIO INTERAMINISTRATIVO%' 
+        AND detalle_objeto NOT LIKE '%MANTENIMIENTO RUTINARIO%'
+        AND detalle_objeto NOT LIKE '%ESFUERZOS%'
 LIMIT
         2000

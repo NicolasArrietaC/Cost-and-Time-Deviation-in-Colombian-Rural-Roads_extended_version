@@ -12,28 +12,26 @@ SELECT DISTINCT
         valor_del_contrato AS valor_contrato_con_adiciones,
         date_extract_y(fecha_de_firma) AS anno_firma, --already updated (anno_firma_del_contrato)
         date_trunc_ymd(fecha_de_firma) AS fecha_fima,
-        fecha_de_inicio_de_ejecucion AS fecha_ini_ejec_contrato,
+        '2021-01-01' AS fecha_ini_ejec_contrato,
         0 AS plazo_de_ejec_del_contrato,
         'NA' AS rango_de_ejec_del_contrato,
         dias_adicionados AS tiempo_adiciones_en_dias,
-        dias_adicionados AS tiempo_adiciones_en_meses,
-        fecha_de_fin_de_ejecucion AS fecha_fin_ejec_contrato,
+        0 AS tiempo_adiciones_en_meses,
+        '2021-01-01' AS fecha_fin_ejec_contrato,
         '000000000' AS id_adjudicacion,
         urlproceso,
-        nit_entidad AS nit_de_la_entidad,
-        codigo_proveedor AS identificacion_del_contratista,
-        departamento || ' - ' || ciudad as dpto_y_muni_contratista,
-        ciudad AS municipio_entidad
+        '000000000' AS nit_de_la_entidad,
+        '000000000' AS identificacion_del_contratista
 WHERE
         detalle_objeto IS NOT NULL
         AND liquidaci_n = 'Si'
         AND codigo_de_categoria_principal LIKE '%.9511%'
-        AND anno_firma IN ('2014','2015','2016','2017','2018','2019','2020')
+        AND anno_firma IN ('2021','2022','2023')
         --AND cuantia_proceso > 20000000
-        AND cuantia_contrato > 20000000
+        AND cuantia_contrato > 1000000
         --AND nombre_regimen_de_contratacion != 'Régimen Especial' --no hay similar
-        AND tipo_de_proceso IN ('Licitación pública Obra Publica','Licitación pública', 'Licitación Pública Acuerdo Marco de Precios')
-        
+        -- AND tipo_de_proceso IN ('Licitación pública Obra Publica','Licitación pública', 'Licitación Pública Acuerdo Marco de Precios')
+
         AND detalle_objeto NOT LIKE '%MEZCLA%ASF%LTICA%'
         AND detalle_objeto NOT LIKE '%DEMOLICI%N%'
         AND detalle_objeto NOT LIKE '%RESTAURACI%N%ESTACI%N%F%RREA%'

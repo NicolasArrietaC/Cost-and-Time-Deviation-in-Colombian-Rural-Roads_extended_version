@@ -21,7 +21,9 @@ SELECT
         id_adjudicacion,
         ruta_proceso_en_secop_i as urlproceso,
         nit_de_la_entidad,
-        identificacion_del_contratista
+        identificacion_del_contratista,
+        dpto_y_muni_contratista,
+        municipio_entidad
 WHERE
         anno_firma IS NOT NULL
         AND fecha_fima IS NOT NULL
@@ -30,49 +32,72 @@ WHERE
         AND id_familia = '9511'
         AND estado_del_proceso = 'Liquidado'
         AND anno_firma IN ('2021','2022','2023')
-        AND cuantia_proceso IS NOT NULL
-        AND cuantia_proceso > 1000000
-        AND cuantia_contrato > 0
-        --AND cuantia_proceso > 20000000
-        --AND cuantia_contrato > 20000000
-        --AND nombre_regimen_de_contratacion != 'Régimen Especial' --already updated (regimen_de_contratacion)
-        --AND tipo_de_proceso IN ('Licitación obra pública','Licitación Pública')
+        AND cuantia_proceso > 20000000
+        AND cuantia_contrato > 20000000
+        AND nombre_regimen_de_contratacion != 'Régimen Especial' --already updated (regimen_de_contratacion)
+        AND tipo_de_proceso IN ('Licitación obra pública','Licitación Pública')
 
-        AND detalle_objeto NOT LIKE '%MEZCLA ASFÁLTICA%'
-        AND detalle_objeto NOT LIKE '%REDUCTORES DE VELOCIDAD%'
-        AND detalle_objeto NOT LIKE '%MUROS DE CONTENCIÓN%'
-        AND detalle_objeto NOT LIKE '%DEMOLICIÓN%'
-        AND detalle_objeto NOT LIKE '%RESTAURACIÓN ESTACIÓN FÉRREA%'
-        AND detalle_objeto NOT LIKE '%CONSTRUCCIÓN DE REDUCTORES DE VELOCIDAD%'
-        AND detalle_objeto NOT LIKE '%REDUCTORES DE VELOCIDAD%'
-        AND detalle_objeto NOT LIKE '%CONSTRUCCIÓN DE REDUCTORES DE VELOCIDAD%'
-        AND detalle_objeto NOT LIKE '%BARANDAS%'
-        AND detalle_objeto NOT LIKE '%MUROS DE CONTENCIÓN%'
-        AND detalle_objeto NOT LIKE '%DEMOLICIÓN%'
-        AND detalle_objeto NOT LIKE '%RESTAURACIÓN ESTACIÓN FÉRREA%'
-        AND detalle_objeto NOT LIKE '%SEÑALIZACIÓN%'
-        AND detalle_objeto NOT LIKE '%REHABILITACIÓN Y CONSERVACIÓN PUENTE%'
-        AND detalle_objeto NOT LIKE '%MANTENIMIENTO TÚNEL%'
-        AND detalle_objeto NOT LIKE '%ALCANTARILLA%'
-        AND detalle_objeto NOT LIKE '%MANO DE OBRA%'
-        AND detalle_objeto NOT LIKE '%BOX CULVERT%'
-        AND detalle_objeto NOT LIKE '%PUENTES COLGANTES%'
-        AND detalle_objeto NOT LIKE '%CASCO URBANO%'
-        AND detalle_objeto NOT LIKE '%VÍAS URBANAS%'
-        AND detalle_objeto NOT LIKE '%EJERCITO%'
-        AND detalle_objeto NOT LIKE '%SEMAFORIZACIÓN%'
-        AND detalle_objeto NOT LIKE '%DEMOLICIONES%'
-        AND detalle_objeto NOT LIKE '%MURO%'
+        AND detalle_objeto NOT LIKE '%MEZCLA%ASF%LTICA%'
+        AND detalle_objeto NOT LIKE '%DEMOLICI%N%'
+        AND detalle_objeto NOT LIKE '%RESTAURACI%N%ESTACI%N%F%RREA%'
+        AND detalle_objeto NOT LIKE '%DEMOLICI%N%'
+        AND detalle_objeto NOT LIKE '%REHABILITACI%N%CONSERVACI%N%PUENTE%'
+        AND detalle_objeto NOT LIKE '%MANTENIMIENTO%T%NEL%'
+        AND detalle_objeto NOT LIKE '%MANO%DE%OBRA%'
+        AND detalle_objeto NOT LIKE '%BOX%C%ULVERT%'
         AND detalle_objeto NOT LIKE '%CICLOVÍAS%'
+        AND detalle_objeto NOT LIKE '%CICLOVIAS%'
         AND detalle_objeto NOT LIKE '%CICLORUTA%'
-        AND detalle_objeto NOT LIKE '%RESIDUOS SÓLIDOS%'
-        AND detalle_objeto NOT LIKE '%DESMONTE Y LIMPIEZA%'
-        AND detalle_objeto NOT LIKE '%AULAS%' 
+        AND detalle_objeto NOT LIKE '%RESIDUOS%S%LIDOS%'
+        AND detalle_objeto NOT LIKE '%PUENTE%PEATONAL%'
+        AND detalle_objeto NOT LIKE '%CONSERVACI%N%PUENTE%'
+        AND detalle_objeto NOT LIKE '%CONSTRUCCI%N%PUENTE%' 
+
+        AND detalle_objeto NOT LIKE '%REDUCTORES%VELOCIDAD%'
+        AND detalle_objeto NOT LIKE '%MUROS%'
+        AND detalle_objeto NOT LIKE '%BARANDAS%'
+        AND detalle_objeto NOT LIKE '%SEÑALIZACI%N%'        
+        AND detalle_objeto NOT LIKE '%SENALIZACI%N%'        
+        AND detalle_objeto NOT LIKE '%ALCANTARILLA%'
+        AND detalle_objeto NOT LIKE '%PUENTES%COLGANTES%'
+        AND detalle_objeto NOT LIKE '%SEMAFORIZACI%N%'
+        AND detalle_objeto NOT LIKE '%DESMONTE%LIMPIEZA%'
+        AND detalle_objeto NOT LIKE '%SUMINISTRO%'
+        AND detalle_objeto NOT LIKE '%INTERVENTOR%A%' 
+        AND detalle_objeto NOT LIKE '%CONSULTOR%A%' 
+        AND detalle_objeto NOT LIKE '%ROCER%A%'
+        AND detalle_objeto NOT LIKE '%ROSER%A%'
+        AND detalle_objeto NOT LIKE '%DISEÑO%'
+        AND detalle_objeto NOT LIKE '%DISENO%' 
+        AND detalle_objeto NOT LIKE '%UNAR%ESFUERZO%'
+        AND detalle_objeto NOT LIKE '%UNNAR%ESFUERZO%'
+        AND detalle_objeto NOT LIKE '%AUNAR%ESPUERZO%'
+        AND detalle_objeto NOT LIKE '%CONVE%IO%'
+        AND detalle_objeto NOT LIKE '%INTERADMINISTRATIVO%'
+        AND detalle_objeto NOT LIKE '%MANTENIMIENTO%RUTINARIO%'
+
+        --AND detalle_objeto NOT LIKE '%CASCO%URBANO%'
+        --AND detalle_objeto NOT LIKE '%VÍAS%URBANAS%'
+        --AND detalle_objeto NOT LIKE '%VIAS%URBANAS%'
+        AND detalle_objeto NOT LIKE '%EJERCITO%'
+        AND detalle_objeto NOT LIKE '%AULAS%'
         AND detalle_objeto NOT LIKE '%CALLE%'
         AND detalle_objeto NOT LIKE '%CARRERA%'
-        AND detalle_objeto NOT LIKE '%URBANA%' 
-        AND detalle_objeto NOT LIKE '%CONSERVACION PUENTES%'
-        AND detalle_objeto NOT LIKE '%PUENTES PEATONALES%' 
-        AND detalle_objeto NOT LIKE '%CONSTRUCCION PUENTES%'  
+        AND detalle_objeto NOT LIKE '%URBAN%'
+
+        -- NEW FILTERS
+        AND detalle_objeto NOT LIKE '%SECUNDARIA%'
+        AND detalle_objeto NOT LIKE '%CARRETERA%'
+        AND detalle_objeto NOT LIKE '%ANDEN%'
+        AND detalle_objeto NOT LIKE '%PARQUE%'
+        AND detalle_objeto NOT LIKE '%SE%ALIZACION%'
+        AND detalle_objeto NOT LIKE '%PISTA%'
+        AND detalle_objeto NOT LIKE '%ESTUDIOS%'
+        AND detalle_objeto NOT LIKE '%ADMINISTRACI%N%'
+        AND detalle_objeto NOT LIKE '%INVENTARIO%'
+        AND detalle_objeto NOT LIKE '%ELABORACI%N%MANUAL%'
+        AND detalle_objeto NOT LIKE '%INSTITUCI%N%EDUCATIVA%'
+        AND detalle_objeto NOT LIKE '%COMPLEMENTA%ESFUERZOS%INSTITUCIONALES%'
+        AND detalle_objeto NOT LIKE '%UNI%ESFUERZOS%'
 LIMIT
         10000

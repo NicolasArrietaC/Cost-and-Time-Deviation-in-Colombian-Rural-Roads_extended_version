@@ -1,39 +1,43 @@
-SELECT DISTINCT
-        id_contrato AS uid,
+SELECT 
+        uid,
         nombre_entidad AS nombre_de_la_entidad, --already updated
-        departamento AS departamento_entidad,
-        orden AS orden_entidad,
+        departamento_entidad,
+        orden_entidad,
         modalidad_de_contratacion AS tipo_de_proceso, --already updated
-        objeto_del_contrato AS objeto_a_contratar,
-        UPPER(descripcion_del_proceso) AS detalle_objeto,
-        0 AS cuantia_proceso,
-        valor_del_contrato AS cuantia_contrato,
-        0 AS valor_total_de_adiciones,
-        valor_del_contrato AS valor_contrato_con_adiciones,
-        date_extract_y(fecha_de_firma) AS anno_firma, --already updated (anno_firma_del_contrato)
-        date_trunc_ymd(fecha_de_firma) AS fecha_fima,
-        fecha_de_inicio_de_ejecucion AS fecha_ini_ejec_contrato,
-        0 AS plazo_de_ejec_del_contrato,
-        'NA' AS rango_de_ejec_del_contrato,
-        dias_adicionados AS tiempo_adiciones_en_dias,
-        dias_adicionados AS tiempo_adiciones_en_meses,
-        fecha_de_fin_de_ejecucion AS fecha_fin_ejec_contrato,
-        '000000000' AS id_adjudicacion,
-        urlproceso,
-        nit_entidad AS nit_de_la_entidad,
-        codigo_proveedor AS identificacion_del_contratista,
-        departamento || ' - ' || ciudad as dpto_y_muni_contratista,
-        ciudad AS municipio_entidad
+        objeto_a_contratar,
+        UPPER(detalle_del_objeto_a_contratar) AS detalle_objeto,
+        cuantia_proceso,
+        cuantia_contrato,
+        valor_total_de_adiciones,
+        valor_contrato_con_adiciones,
+        anno_firma_contrato AS anno_firma, --already updated (anno_firma_del_contrato)
+        fecha_de_firma_del_contrato AS fecha_fima,
+        fecha_ini_ejec_contrato,
+        plazo_de_ejec_del_contrato,
+        rango_de_ejec_del_contrato,
+        tiempo_adiciones_en_dias,
+        tiempo_adiciones_en_meses,
+        fecha_fin_ejec_contrato,
+        id_adjudicacion,
+        ruta_proceso_en_secop_i as urlproceso,
+        nit_de_la_entidad,
+        identificacion_del_contratista
 WHERE
-        detalle_objeto IS NOT NULL
-        AND liquidaci_n = 'Si'
-        AND codigo_de_categoria_principal LIKE '%.9511%'
-        AND anno_firma IN ('2014','2015','2016','2017','2018','2019','2020')
+        anno_firma IS NOT NULL
+        AND fecha_fima IS NOT NULL
+        AND detalle_objeto IS NOT NULL
+
+        AND id_familia = '9511'
+        AND estado_del_proceso = 'Liquidado'
+        AND anno_firma NOT IN ('2008','2009','2010','2011','2012','2013','2021','2022','2023','2024')
+        AND cuantia_proceso IS NOT NULL
+        AND cuantia_proceso > 1000000
+        AND cuantia_contrato > 0
         --AND cuantia_proceso > 20000000
-        AND cuantia_contrato > 20000000
-        --AND nombre_regimen_de_contratacion != 'Régimen Especial' --no hay similar
-        AND tipo_de_proceso IN ('Licitación pública Obra Publica','Licitación pública', 'Licitación Pública Acuerdo Marco de Precios')
-        
+        --AND cuantia_contrato > 20000000
+        --AND nombre_regimen_de_contratacion != 'Régimen Especial' --already updated (regimen_de_contratacion)
+        --AND tipo_de_proceso IN ('Licitación obra pública','Licitación Pública')
+
         AND detalle_objeto NOT LIKE '%MEZCLA%ASF%LTICA%'
         AND detalle_objeto NOT LIKE '%DEMOLICI%N%'
         AND detalle_objeto NOT LIKE '%RESTAURACI%N%ESTACI%N%F%RREA%'
@@ -97,4 +101,4 @@ WHERE
         AND detalle_objeto NOT LIKE '%COMPLEMENTA%ESFUERZOS%INSTITUCIONALES%'
         AND detalle_objeto NOT LIKE '%UNI%ESFUERZOS%'
 LIMIT
-        2000
+        10000

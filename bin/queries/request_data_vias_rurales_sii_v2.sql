@@ -21,19 +21,17 @@ SELECT DISTINCT
         '000000000' AS id_adjudicacion,
         urlproceso,
         nit_entidad AS nit_de_la_entidad,
-        codigo_proveedor AS identificacion_del_contratista,
-        departamento || ' - ' || ciudad as dpto_y_muni_contratista,
-        ciudad AS municipio_entidad
+        codigo_proveedor AS identificacion_del_contratista
 WHERE
         detalle_objeto IS NOT NULL
         AND liquidaci_n = 'Si'
         AND codigo_de_categoria_principal LIKE '%.9511%'
         AND anno_firma IN ('2014','2015','2016','2017','2018','2019','2020')
         --AND cuantia_proceso > 20000000
-        AND cuantia_contrato > 20000000
+        AND cuantia_contrato > 1000000
         --AND nombre_regimen_de_contratacion != 'Régimen Especial' --no hay similar
-        AND tipo_de_proceso IN ('Licitación pública Obra Publica','Licitación pública', 'Licitación Pública Acuerdo Marco de Precios')
-        
+        -- AND tipo_de_proceso IN ('Licitación pública Obra Publica','Licitación pública', 'Licitación Pública Acuerdo Marco de Precios')
+        --AND detalle_objeto LIKE '%SECUNDARIA%'
         AND detalle_objeto NOT LIKE '%MEZCLA%ASF%LTICA%'
         AND detalle_objeto NOT LIKE '%DEMOLICI%N%'
         AND detalle_objeto NOT LIKE '%RESTAURACI%N%ESTACI%N%F%RREA%'
@@ -95,6 +93,6 @@ WHERE
         AND detalle_objeto NOT LIKE '%ELABORACI%N%MANUAL%'
         AND detalle_objeto NOT LIKE '%INSTITUCI%N%EDUCATIVA%'
         AND detalle_objeto NOT LIKE '%COMPLEMENTA%ESFUERZOS%INSTITUCIONALES%'
-        AND detalle_objeto NOT LIKE '%UNI%ESFUERZOS%'
+        AND detalle_objeto NOT LIKE '%UNI%ESFUERZOS%'  
 LIMIT
         2000
