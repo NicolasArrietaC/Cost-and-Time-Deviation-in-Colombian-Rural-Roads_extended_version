@@ -91,7 +91,7 @@ def process_data(df):
                       2021:908526,
                       2022:1000000,
                       2023:1160000,
-                      2024:130000}
+                      2024:1300000}
     
     for col in cuantia_col:
         temp = [val/salario_minimo[anno] for val,anno in zip(df[col],df['YEAR'])]
