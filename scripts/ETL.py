@@ -22,7 +22,8 @@ def extract_data(query, url='www.datos.gov.co', id_data='xvdy-vvsk', api_key='Sz
     if api_key != None:
         socrata_token = os.environ.get(api_key)
     
-    client = Socrata(url, socrata_token)
+    client = Socrata(url, socrata_token, timeout=100)
+
 
     # Query data
     query_results = client.get(id_data, query=query)
@@ -113,8 +114,8 @@ def process_data(df):
     df['PROJECT_INTENSITY_ORIG'] = df['CONTRACT_VALUE_ORIG']/df['ORIGINAL_DEADLINE']
 
     # Calculate award growth
-    df['AWARD_GROWTH_NORM'] = ((df['CONTRACT_VALUE_NORM'] - df['ESTIMATED_COST_NORM'])/df['ESTIMATED_COST_NORM'])*100
-    df['AWARD_GROWTH_ORIG'] = ((df['CONTRACT_VALUE_ORIG'] - df['ESTIMATED_COST_ORIG'])/df['ESTIMATED_COST_ORIG'])*100
+    df['AWARD_GROWTH_NORM'] = ((df['CONTRACT_VALUE_NORM'] - df['ESTIMATED_COST_NORM'])/df['ESTIMATED_COST_NORM'])
+    df['AWARD_GROWTH_ORIG'] = ((df['CONTRACT_VALUE_ORIG'] - df['ESTIMATED_COST_ORIG'])/df['ESTIMATED_COST_ORIG'])
 
     # Calculate cost deviation
     df['COST_DEVIATION_ORIG'] = (df['FINAL_COST_ORIG'] - df['CONTRACT_VALUE_ORIG'])/df['CONTRACT_VALUE_ORIG']

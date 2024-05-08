@@ -96,5 +96,8 @@ WHERE
         AND detalle_objeto NOT LIKE '%INSTITUCI%N%EDUCATIVA%'
         AND detalle_objeto NOT LIKE '%COMPLEMENTA%ESFUERZOS%INSTITUCIONALES%'
         AND detalle_objeto NOT LIKE '%UNI%ESFUERZOS%'
+        --CONTAIN FILTERS
+        AND (detalle_objeto LIKE '%VIA%' OR detalle_objeto LIKE '%VIAS%' OR detalle_objeto LIKE '%VIAL%')
+        AND (detalle_objeto LIKE '%VEREDA%' OR detalle_objeto LIKE '%RURAL%' OR detalle_objeto LIKE '%TERCIARIA%')
 LIMIT
         2000

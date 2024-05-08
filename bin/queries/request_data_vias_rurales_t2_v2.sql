@@ -45,7 +45,7 @@ WHERE
         AND detalle_objeto NOT LIKE '%REHABILITACI%N%CONSERVACI%N%PUENTE%'
         AND detalle_objeto NOT LIKE '%MANTENIMIENTO%T%NEL%'
         AND detalle_objeto NOT LIKE '%MANO%DE%OBRA%'
-        AND detalle_objeto NOT LIKE '%BOX%CULVERT%'
+        AND detalle_objeto NOT LIKE '%BOX%C%ULVERT%'
         AND detalle_objeto NOT LIKE '%CICLOVÍAS%'
         AND detalle_objeto NOT LIKE '%CICLOVIAS%'
         AND detalle_objeto NOT LIKE '%CICLORUTA%'
