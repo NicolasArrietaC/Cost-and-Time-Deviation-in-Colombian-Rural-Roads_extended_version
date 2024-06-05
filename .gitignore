@@ -8,7 +8,6 @@ data/responsabilidades_fiscales.csv
 bin/queries/support_queries.sql
 bin/queries/*secundarias*.sql
 
-
 bin/queries/*v2*.sql
 scripts/*v2*.sql
 
