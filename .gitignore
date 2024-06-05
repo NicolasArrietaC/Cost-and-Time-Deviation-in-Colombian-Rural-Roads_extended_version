@@ -7,5 +7,10 @@ data/departamentos_y_municipios_de_colombia.csv
 data/responsabilidades_fiscales.csv
 bin/queries/support_queries.sql
 bin/queries/*secundarias*.sql
+
+
+bin/queries/*v2*.sql
+scripts/*v2*.sql
+
 bin/queries/*dash.sql
 .DS_Store

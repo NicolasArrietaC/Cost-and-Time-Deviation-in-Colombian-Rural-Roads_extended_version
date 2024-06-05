@@ -79,5 +79,19 @@ WHERE
         AND detalle_objeto NOT LIKE '%CONVEIO INTERAMINISTRATIVO%' 
         AND detalle_objeto NOT LIKE '%MANTENIMIENTO RUTINARIO%'
         AND detalle_objeto NOT LIKE '%ESFUERZOS%'
+        -- NEW FILTERS
+        AND detalle_objeto NOT LIKE '%ANDEN%'
+        AND detalle_objeto NOT LIKE '%PARQUE%'
+        AND detalle_objeto NOT LIKE '%SE%ALIZACION%'
+        AND detalle_objeto NOT LIKE '%PISTA%'
+        AND detalle_objeto NOT LIKE '%ESTUDIOS%'
+        AND detalle_objeto NOT LIKE '%ADMINISTRACI%N%'
+        AND detalle_objeto NOT LIKE '%INVENTARIO%'
+        AND detalle_objeto NOT LIKE '%ELABORACI%N%MANUAL%'
+        AND detalle_objeto NOT LIKE '%INSTITUCI%N%EDUCATIVA%'
+        AND detalle_objeto NOT LIKE '%COMPLEMENTA%ESFUERZOS%INSTITUCIONALES%'
+        AND detalle_objeto NOT LIKE '%UNI%ESFUERZOS%'
+        --CONTAIN FILTERS
+        AND NOT(detalle_objeto LIKE '%VEREDA%' OR detalle_objeto LIKE '%RURAL%' OR detalle_objeto LIKE '%TERCIARIA%')
 LIMIT
         2000
