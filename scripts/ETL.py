@@ -22,7 +22,7 @@ def extract_data(query, url='www.datos.gov.co', id_data='xvdy-vvsk', api_key='Sz
     if api_key != None:
         socrata_token = os.environ.get(api_key)
     
-    client = Socrata(url, socrata_token, timeout=100)
+    client = Socrata(url, socrata_token, timeout=300)
 
 
     # Query data
@@ -31,6 +31,27 @@ def extract_data(query, url='www.datos.gov.co', id_data='xvdy-vvsk', api_key='Sz
     print("El numero de contratos extraidos: {}".format(query_results.shape[0]))
     return query_results
 
+
+def currency_standarize(df, cuantia_col):
+
+    salario_minimo = {2014:616000, 
+                        2015:644350,
+                        2016:689455,
+                        2017:737717,
+                        2018:781242,
+                        2019:828116,
+                        2020:877803,
+                        2021:908526,
+                        2022:1000000,
+                        2023:1160000,
+                        2024:1300000}
+        
+    for col in cuantia_col:
+        temp = [val/salario_minimo[anno] for val,anno in zip(df[col],df['YEAR'])]
+        df[col.replace("_ORIG", "_NORM")] = temp
+        del temp
+    
+    return df
 
 def process_data(df):
     """
@@ -52,7 +73,8 @@ def process_data(df):
               'fecha_fin_ejec_contrato':'datetime64[ns]',
               'id_adjudicacion':'object',
               'nit_de_la_entidad':'object',
-              'identificacion_del_contratista':'object'}))
+              'identificacion_del_contratista':'object',
+              'dpto_y_muni_contratista':'object'}))
     
     # Rename columns
     df.rename(columns={'cuantia_proceso':'ESTIMATED_COST_ORIG',
@@ -75,7 +97,9 @@ def process_data(df):
                        'id_adjudicacion':'ID_ADJUDICACION',
                        'urlproceso':'URLPROCESO',
                        'nit_de_la_entidad':'NIT_ENTIDAD',
-                       'identificacion_del_contratista':'ID_CONTRATISTA'}, 
+                       'identificacion_del_contratista':'ID_CONTRATISTA',
+                       'dpto_y_muni_contratista':'DPTO_MUN_CONTRATISTA',
+                       'nom_razon_social_contratista':'NOM_CONTRATISTA'}, 
               inplace=True)
     
     # Scale all values of contracto to monthly legal minimimun salary 
@@ -121,7 +145,7 @@ def process_data(df):
     df['COST_DEVIATION_ORIG'] = (df['FINAL_COST_ORIG'] - df['CONTRACT_VALUE_ORIG'])/df['CONTRACT_VALUE_ORIG']
     df['COST_DEVIATION_NORM'] = (df['FINAL_COST_NORM'] - df['CONTRACT_VALUE_NORM'])/df['CONTRACT_VALUE_NORM']
 
-    # Calculate cost deviation 
+    # Calculate time deviation 
     df['TIME_DEVIATION'] = (df['FINAL_DEADLINE'] - df['ORIGINAL_DEADLINE'])/df['ORIGINAL_DEADLINE']
 
     

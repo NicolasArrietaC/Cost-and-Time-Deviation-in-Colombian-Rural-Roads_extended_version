@@ -23,7 +23,8 @@ SELECT
         nit_de_la_entidad,
         identificacion_del_contratista,
         dpto_y_muni_contratista,
-        municipio_entidad
+        municipio_entidad,
+        nom_razon_social_contratista
 WHERE
         anno_firma IS NOT NULL
         AND fecha_fima IS NOT NULL

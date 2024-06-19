@@ -28,7 +28,7 @@ WHERE
         AND detalle_objeto IS NOT NULL
 
         AND id_familia = '9511'
-        AND estado_del_proceso = 'Liquidado'
+        AND estado_del_proceso = 'Liquidado' -- abrir también
         AND anno_firma NOT IN ('2008','2009','2010','2011','2012','2013','2021','2022','2023','2024')
         AND cuantia_proceso IS NOT NULL
         AND cuantia_proceso > 1000000

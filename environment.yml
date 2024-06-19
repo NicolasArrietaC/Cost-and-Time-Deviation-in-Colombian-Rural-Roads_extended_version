@@ -1,0 +1,13 @@
+name: base
+channels:
+  - defaults
+dependencies:
+  - pandas
+  - numpy
+  - mlxtend
+  - folium
+  - scipy
+  - matplotlib
+  - seaborn
+  - sodapy
+  prefix: C:\Users\nicolas.arrieta\anaconda3
